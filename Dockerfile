@@ -3,19 +3,19 @@ FROM eclipse-temurin:21 AS build
 
 WORKDIR /app
 
-# Copy only what's needed first for dependency caching
-COPY pom.xml .
-COPY mvnw .
-COPY .mvn .mvn
+## Copy only what's needed first for dependency caching
+#COPY pom.xml .
+#COPY mvnw .
+#COPY .mvn .mvn
 
 # Download dependencies (caching layer)
-RUN ./mvnw dependency:go-offline
+RUN mvnw dependency:go-offline
 
 # Copy the full source code
 COPY src ./src
 
 # Package the application (skipping tests for speed)
-RUN ./mvnw clean package -DskipTests
+RUN mvnw clean package -DskipTests
 
 # Step 2: Run stage using a slim JDK
 FROM eclipse-temurin:21-jdk-jammy
