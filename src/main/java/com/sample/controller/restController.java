@@ -31,6 +31,21 @@ public class restController {
         map.put(data.getName().toLowerCase(), data);
     }
 
+    @DeleteMapping("/testDeleteWithParam/{name}")
+    public ResponseEntity<Data> testDeleteWithParam(@PathVariable String name){
+        System.out.println("Consumer connect to get testGetWithParam Call with id "+name);
+        Data response = map.get(name.toLowerCase());
+        map.remove(name.toLowerCase());
+        return ResponseEntity.ok(response);
+    }
+
+    @PutMapping("/testPutWithParam/{name}")
+    public ResponseEntity<Data> testPutWithParam(@PathVariable String name,@RequestBody Data data){
+        System.out.println("Consumer connect to get testPutWithParam Call with id "+name);
+        map.put(data.getName().toLowerCase(), data);
+        return ResponseEntity.ok(map.get(name.toLowerCase()));
+    }
+
     @PostMapping("/testLogData")
     public void testLogData(){
         System.out.println("Consumer connect to Log Data "+ map.toString());
