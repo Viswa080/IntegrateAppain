@@ -42,7 +42,7 @@ public class restController {
     @PutMapping("/testPutWithParam/{name}")
     public ResponseEntity<Data> testPutWithParam(@PathVariable String name,@RequestBody Data data){
         System.out.println("Consumer connect to get testPutWithParam Call with id "+name);
-        map.put(data.getName().toLowerCase(), data);
+        map.put(name.toLowerCase(), data);
         return ResponseEntity.ok(map.get(name.toLowerCase()));
     }
 
